@@ -1,14 +1,18 @@
-What You Will Learn
+## What You Will Learn
 I mentioned previously that I’ll be equipping you with some new tools and techniques. Let’s flesh these out.
-InTroduCTIon  Tools
+
+## Introductonn Tools
 On the tool end of things, we’ll be using the following:
+
 •	JavaScript and the SvJs library. I’ll elaborate on this further later.
 •	A code editor. Here I’ll be giving you a choice between
 •	Visual Studio Code (an excellent open source code editor)
 •	CodePen (a popular online code editor)
 •	If you opt to use Visual Studio Code (which I recommend), we’ll also be using Node.js and NPM to manage dependencies (a good habit to get into as a developer).
 
-All code examples are available on both GitHub and CodePen, so feel free to follow along whichever way you prefer. You can of course do both, work locally with a code editor but check out CodePen examples online for quick inspiration. For convenience, I’ll organize and embed all CodePen examples at davidmatthew.ie/generative-art-javascript-svg.
+All code examples are available on both GitHub and CodePen, so feel free to follow along whichever way you prefer. You can of course do both, work 
+locally with a code editor but check out CodePen examples online for quick inspiration. For convenience, I’ll organize and embed all CodePen 
+examples at davidmatthew.ie/generative-art-javascript-svg.
 
 ## Techniques
 In terms of the techniques we’ll tackle, by the end of this book, you should have a good overview of the following:
@@ -25,17 +29,32 @@ In terms of the techniques we’ll tackle, by the end of this book, you should h
 •	Animating sketches
 •	Using SVG filters generatively
 
-We’ll be covering a lot of ground, so don’t put yourself under pressure to understand everything. I must have encountered certain programming concepts 
-umpteen times before the proverbial penny finally dropped (JavaScript promises anyone?), and whenever understanding did finally dawn, it would usually be because I was experimenting with something I wanted to build, rather than repeating tutorial steps by rote. Tutorials and instructional books certainly have their place (I wouldn’t be writing this book otherwise), but it’s important that you take what you want from them, rather than seeing them as syllabi to be strictly followed.
-A sense of play is important, particularly when it comes to art. And although I mentioned tools previously, I would prefer if you viewed this book as more of a toybox than a toolbox. When I think of tools, I think of problems that need fixing, like the loose hinges on that crooked cabinet you’re going to tighten any day now. Tools tend to be more functional than fun, and I’d like you to have some fun with this book.
+We’ll be covering a lot of ground, so don’t put yourself under pressure to understand everything. I must have encountered certain programming 
+concepts umpteen times before the proverbial penny finally dropped (JavaScript promises anyone?), and whenever understanding did finally dawn, 
+it would usually be because I was experimenting with something I wanted to build, rather than repeating tutorial steps by rote. Tutorials and 
+instructional books certainly have their place (I wouldn’t be writing this book otherwise), but it’s important that you take what you want 
+from them, rather than seeing them as syllabi to be strictly followed.
+
+A sense of play is important, particularly when it comes to art. And although I mentioned tools previously, I would prefer if you viewed 
+this book as more of a toybox than a toolbox. When I think of tools, I think of problems that need fixing, like the loose hinges on that 
+crooked cabinet you’re going to tighten any day now. Tools tend to be more functional than fun, and I’d like you to have some fun with 
+this book.
 
 # CHAPTER 1
+
 ## The Beginner’s Path
-Before journeying along any path, the groundwork needs to be in place. In this opening chapter, that’s what we’ll do, lay the groundwork. We’ll introduce SVG, explain what makes it a uniquely powerful image format, and show how it can be used with JavaScript to create generative art. In the process, we’ll set up our tools and a template we can use for subsequent sketches.
+Before journeying along any path, the groundwork needs to be in place. In this opening chapter, that’s what we’ll do, lay the groundwork. 
+We’ll introduce SVG, explain what makes it a uniquely powerful image format, and show how it can be used with JavaScript to create 
+generative art. In the process, we’ll set up our tools and a template we can use for subsequent sketches.
 
  ## Why JavaScript and SvJs?
-Most books about generative art use a Java-based language called Processing, or its JavaScript port p5.js. Processing was created specifically for artists and designers new to coding and has a large and active community. So why doesn’t this book use it?
-My first forays into generative art were with Processing, so I certainly acknowledge its value. I quickly moved to p5.js when the library was first released in 2013, which allowed generative sketches to be written directly in JavaScript, the language of the Web. But when I wanted to integrate some of my own sketches into real-world web development projects, its limitations quickly showed. It’s a large library, clocking in at close to a megabyte at last check, and while that may not sound like much, it’s a lot by web development standards.
+Most books about generative art use a Java-based language called Processing, or its JavaScript port p5.js. Processing was created 
+specifically for artists and designers new to coding and has a large and active community. So why doesn’t this book use it?
+My first forays into generative art were with Processing, so I certainly acknowledge its value. I quickly moved to p5.js when the 
+library was first released in 2013, which allowed generative sketches to be written directly in JavaScript, the language of the 
+Web. But when I wanted to integrate some of my own sketches into real-world web development projects, its limitations quickly 
+showed. It’s a large library, clocking in at close to a megabyte at last check, and while that may not sound like much, it’s a 
+lot by web development standards.
 © David Matthew 2024 	1
 D. Matthew, Generative Art with JavaScript and SVG, Design Thinking,  https://doi.org/10.1007/979-8-8688-0086-3_1
 The p5.js library is built on top of the HTML Canvas API, which I soon discovered is actually quite straightforward to use. Using this API directly, I was able to achieve much the same results as with p5.js, so that became my go-to. However, the output of all my sketches – p5.js or Canvas – was still resolution-dependent bitmap graphics, devoid of any semantic content. What does that mean, and why does it matter (to me at least)? Let me explain.
@@ -184,6 +203,177 @@ const rect = svg.create('rect'); rect.set({ x: 0, y: 0, width: 1000, height: 100
  */
 function random(min, max, integer = true) {   let random = Math.random() * (max - min) + min;   let number = integer ? Math.floor(random) : random;   return number; }
 ```
+
+Ok, so quite the code dump! It will no doubt overwhelm anyone new to coding, so if you fall into this category and find yourself balking at the aforementioned, please bear with me; all will be explained in the forthcoming chapters. The purpose of this first generative sketch is to just jump in and show you some quick results.
+When you save the aforementioned, you should see something like Figure 1-3. Each refresh of the browser will render a unique version, so what you see will no doubt differ in some respects. But that, dear reader, is part of the joy of generative art.
+<image003>
+Figure 1-3. Our first generative sketch (one variation of many)
+
+## Summary
+To recap, we’ve covered the following in this first chapter:
+•	Why we’re using JavaScript and SvJs rather than Processing or p5.js
+•	What sets SVG apart from raster formats like PNG and JPG
+•	How scripting SVG differs from writing it directly in markup
+•	How SvJs can make SVG scripting more intuitive and less verbose
+•	Installing and importing the SvJs library and setting up our base template
+•	How to serve our sketches from a local development server
+Coming up next: a programming primer.
+
+# CHAPTER 2
+## A Programming Primer
+Although programming can be used to create art, it can also be an art in itself. It is part art and part science. When beginning programming, you need to familiarize yourself more with the scientific side of it, the fundamental concepts and rules that comprise programming as a discipline. The art can come later.
+Learning the basics in programming means getting to grips with concepts like values, variables, operators, expressions, conditionals, loops, functions, and more. If you have no idea what any of these are, don’t worry. That’s what this chapter is for.
+We’ll also cover the characteristics (including some of the peculiarities) of JavaScript, our language of choice. JavaScript is a powerful and enormously popular language; it is the only programming language web browsers natively understand, so naturally enough, it is everywhere. Learning JavaScript is therefore a very practical choice and will serve you well in a lot of other areas besides generative art.
+
+## Syntax
+We’ll begin with some points on syntax.
+© David Matthew 2024 	19
+D. Matthew, Generative Art with JavaScript and SVG, Design Thinking,  https://doi.org/10.1007/979-8-8688-0086-3_2
+
+## Case Sensitivity
+JavaScript is a case-sensitive language, so the words JavaScript and javascript would be considered distinct from one another. A capitalization convention that many coders adhere to when naming functions or variables is something called camel case, where terms are joined together in a manner resembling the humps of a camel. For example:
+thisIsCamelCase soIsThis
+As you can see, the first part of the term is entirely lowercase, and all subsequent terms use what we’d call title case, where the first character of the word is capitalized.
+
+## Spacing
+Unlike some languages that enforce strict indentation, whitespace in JavaScript doesn’t carry any intrinsic meaning. Spacing is mostly a matter of style. The most prevalent stylistic convention you’ll come across within the JavaScript community is the use of two spaces to indent code, as follows:
+
+```
+someCode() {   some indented code }
+```
+
+## Semicolons
+Each statement in JavaScript should end with a semicolon ( ; ), which is the equivalent of a full stop in natural language. You can choose to leave them out altogether, due to a JavaScript feature called Automatic Semicolon Insertion (ASI), but because this isn’t always safe to do (and because I also work with other languages where semicolons are mandatory), I opt to leave them in.
+The code throughout this book will therefore use semicolons.
+## Comments
+A very important habit to cultivate is the liberal use of comments in any code you write. Not only so that others can more easily read and understand your code, but so that you can do so too. You’d be amazed at how quickly your own code can become conundrum-like without comments to guide the way.
+There are two types of comments in JavaScript: single-line comments and multi-line comments. Single-line comments begin with two forward- slashes //, and multi-line comments begin with a forward slash and asterisk /* and terminate with an asterisk and forward slash */.
+
+```
+// A single-line comment. Useful for quick explanations.
+/*  * A multi-line comment.
+ * Useful for properly documenting code.
+ */
+```
+
+Single-line comments can also be placed after code on the same line.
+
+```
+someCode(); // We can safely write a comment here.
+```
+
+## Values
+As a programmer, you’ve got to be well versed in values and their various types. We’re not talking moral values here or a programming code of ethics; by values, we mean “chunks” of information that are eventually boiled down to the bytes and bits that the computer processes.
+Values can be anything from numbers to strings of text (like “I love breakfast cereals”). Let’s start with numbers.
+
+## Numbers
+If computers love anything at all, it’s numbers. They can crunch them far faster than I can crunch through my favorite breakfast cereal. In some programming languages, there are different types of numbers (e.g., int representing integers or whole numbers and float representing decimal or floating-point numbers), but in JavaScript, all numeric values are of the single type Number.
+
+```
+17 // A whole number.
+23.085 // A decimal number. 4e2 // A number with an exponent (four to the power of two in this case).
+```
+
+## Strings
+Strings represent textual information, like words and sentences. Strings need to be surrounded by quote marks, of the single or double variety.
+'There are 10 kinds of people in this world.'
+
+```
+// Single quotes
+"Those who understand binary and those who don't." // 
+```
+
+## Double quotes
+Whether you choose to use single or double quotes, it’s important to be consistent with your choice. Try not to mix them haphazardly.
+Another type of string exists called the template literal, which allows you to insert variables and expressions into a string. This isn’t possible with standard single or double quotes. Template literals are surrounded by backticks, and code can be inserted between curly braces prepended by a dollar sign, like so:
+`Some text here ${someCodeHere}, and more text here. Pretty cool huh?`
+This is a more recent feature of JavaScript and is extremely useful for handling concatenated (i.e., pieced together) and multi-line strings. Let’s illustrate this with an example.
+
+```
+// Here's how developers used to have to store multi-line HTML string data.
+let oldWay = '' +
+'    <div class="intro">\n' +
+'\n' +
+'         <p>My name is ' + name + ' and I am ' + age + ' years of age.</p>\n'
+'\n' +
+'    </div>\n';
+// And here's how the same thing can be done now. let newWay = ` <div class="intro">     <p>My name is ${name} and I am ${age} years of age.</p>
+</div>`;
+```
+
+As you can see, it is much more readable and concise. As a rule, whenever you want to mix string values with anything else, backticks are the best choice.
+
+## Booleans
+Boolean values are binary; they can be either true or false. They are named after George Boole, inventor of Boolean algebra.
+They can be useful for representing any binary state: yes or no, on or off, alive or dead, etc. They are written as simply true or false.
+let alive = true; // phew let kicking = false; // just sitting
+Booleans make conditional statements and comparisons possible, which we’ll get to a little later.
+
+## Empty Values
+Empty values are the final values we’ll consider. There are two: null and undefined. You can think of them as values that carry no information. You’ll see a lot of them (particularly undefined) when debugging your code, so as you can imagine, they are not always the most welcome of visitors.
+What is the difference between null and undefined? A simplified way to think of it is this: when JavaScript tells you a variable called x is null, it’s saying “yeah I know about x, but x doesn’t have any value so far as I can see.” If, on the other hand, it tells you that x is undefined, it is essentially 
+saying “What the **** is x? Ain’t no x around here.”
+
+## Variables
+We’ve name-dropped variables a couple of times already, so what exactly are they? You can think of variables like containers for values that can be referenced later.
+A variable needs to be declared before it can be used. There are three ways to do this: using const, let, or var.
+The latter, var, is no longer recommended; I mention it mainly for historical reasons and because it is something you’ll likely encounter in the wild. Many, many JavaScript code bases out there still use var, simply because prior to the great JavaScript update of 2015 (called ECMAScript 6, or ES6 for short), there was no other options available.
+Declaring a variable involves using the keyword, creating a name/ identifier, and then assigning it a value using the equals operator.
+const name = 'David Matthew'; const countryOfBirth = 'Ireland'; let age = 21; // I wish!
+What’s the difference between const and let? When using const, you’re declaring a value that shouldn’t change. My countryOfBirth is an example: this is a historical fact that remains constant. If I later tried to reassign a new value to countryOfBirth, this would result in an error:
+
+```
+countryOfBirth = 'Brazil'; // uh oh... -> TypeError: Assignment to constant variable
+```
+
+My age, however, is (alas) subject to change, so it can be updated without any issues. Another difference between const and let is that the latter can be declared without a value, whereas with const, a value must be assigned to it when it is first created.
+```
+let a; // A-ok. const b; // asking for trouble.
+-> Uncaught SyntaxError: Missing initializer in const declaration
+```
+
+When unsure, should you use const or let? The general consensus in the JavaScript community is that you should use const by default and only use let when you think the variable may be assigned a new value later. The reasoning is that this can reduce any unintended value re-assignments, ruling out a potential source of bugs.
+## Operators
+An operator is a symbol that performs operations on values. We’ve actually come across one already: the assignment operator ( = ), which assigns a value to a variable. Let’s see what other kinds of operators are available to us.
+## Arithmetic Operators
+As you might have guessed, arithmetic operators allow us to perform mathematical operations. The addition operator ( + ) allows us to add numbers, but it also allows us to concatenate strings.
+
+```
+// Adding numbers.
+2 + 2
+-> 4
+// Concatenating strings.
+'I am' + ' so smrt'
+-> 'I am so smrt'
+There are also operators for subtraction ( - ), multiplication ( * ), and division ( / ).
+// Subtracting numbers.
+9 - 4
+-> 5
+// Dividing numbers.
+9 / 4
+-> 2.25
+// Multiplying numbers.
+9 * 4
+-> 36
+ES6 introduced an exponentiation operator ( ** ), which allows you to multiply one number by a factor of another (i.e., one number to the power of another).
+// The exponentiation operator.
+2 ** 2
+-> 4
+2 ** 6
+-> 64
+2	** 10
+-> 1024
+And finally, there is the modulo operator ( % ). This divides one number by another and gives you the remainder. This can be especially useful when cycling through arrays (which we’ll get to later), or quickly finding out if an unknown quantity is even or odd.
+// The modulo operator in action.
+3	% 3
+-> 0
+3 % 2
+-> 1
+12 % 5
+-> 2
+```
+
+
 
 
 
