@@ -141,6 +141,52 @@ Open the index.html file. It’s worth noting that VS Code can generate some boi
 </html>
 ```
 
+There’s just a couple of things worth pointing out about the preceding code: our <div id="container"> will be where the generative art actually happens. It will be our canvas, so to speak. I have placed it within the center of the screen, removed any default margins, and given the template an overall “dark-mode” feel (my own personal preference).
+Below the <div> you’ll see a <script> tag. This is where we’ll pull in all our code, so any further modifications to the HTML will be unnecessary going forward (other than maybe updating the <title> tag for each sketch, but I’ll leave that up to you). The script is set to type="module". What this does is allow us to handle the import of other files and libraries that are packaged (or exported) as modules. This is a good practice to get into, and it’s also how we’re going to import the SvJs library.
+Open up the sketch.js file and include this as your first two lines:
+// Import the SvJs library. import { SvJs } from '../../node_modules/svjs/src/index.js';
+Our template is now complete, ready to be copied for subsequent sketches. Well done!
+
+Serving Our Sketches
+If you navigate to the 00-template folder at this point and double-click on index.html to open it in a web browser, you’ll see some errors in the developer console (accessible by pressing F12 on most browsers). This is because we need to serve our HTML files using the http:// protocol rather than the file:// protocol (you’ll see the protocol prefix if you check the full URL in the address bar).
+To rectify this, we need to install an http server. And ideally one that detects file changes and instantly reloads our page, saving us from having to manually refresh our browser each time (which becomes a pain after a while). There’s a neat little package called live-server that takes care of this for us. To install it, run the following in the terminal:
+npm install live-server -g
+The -g flag tells npm to install this package globally on our machine, rather than locally to the project in question. As it’s more a general- purpose utility than a project-specific dependency, this is what we want.
+To get live-server to run, all you need to do is type live-server into the terminal. It will then automatically open a new browser window where you’ll see your project files (assuming you’re still in the project’s base folder in VS Code). Navigate to sketches ➤ 00-template and you should see your page load free of any console errors. It’s also free of any content though, so let’s write some code to address this.
+ Our First Generative Sketch
+As I mentioned previously, our first sketch will serve as a basis for explaining the fundamental programming concepts we’ll be covering in Chapter 2, so what follows is, for this reason, rather light on explanations (other than some comments in the code itself).
+Make a copy of the 00-template folder and call it 01-our-first- generative-sketch, ensuring to copy it to the same location (i.e., so that the parent folder is sketches).
+Then, either write out the following code (recommended) or copy it into your sketch.js file, below the import statement. Read the comments as you go (the lines starting with //), which I’ve purposely kept quite verbose so you can get a better handle on what’s happening.
+
+``
+// Import the SvJs library. import { SvJs } from '../../node_modules/svjs/src/index.js';
+// Create some global variables. const svgSize = window.innerWidth > window.innerHeight ? 
+window.innerHeight : window.innerWidth; const bgColor = '#181818';
+// Create an object to store some of our randomised parameters.
+const randomised = {   hue: random(0, 360),   rotation: random(-180, 180),   iterations: random(10, 100)
+}
+// Create our parent SVG and attach it to the element with id 
+'container'. const svg = new SvJs(); svg.addTo(document. getElementById('container'));
+// Set the width and height of the viewBox and the displayed size of the SVG. svg.set({ viewBox: '0 0 1000 1000', width: svgSize, height: svgSize });
+// Create a background layer - a rectangle the full size of our viewBox.
+const rect = svg.create('rect'); rect.set({ x: 0, y: 0, width: 1000, height: 1000, fill: bgColor });
+// Run a loop a random number of times to create our ellipses. for (let i = 0; i < randomised.iterations; i += 1) {
+   // Set the centre point, the x and y radii of our ellipse and its rotation.
+  let center = 500;   let radiusX = 100 + (i * 3);   let radiusY = 300 + (i * 2);   let rotation = randomised.rotation + (i * 2);
+   // If our random hue is less than 180, increment it. Otherwise decrement it.   let hue;   if (randomised.hue < 180) {     hue = randomised.hue + (i * 3);
+  } else {
+    hue = randomised.hue - (i * 3);
+  }
+  // Create our ellipse.   let ellipse = svg.create('ellipse');   ellipse.set({     cx: center,     cy: center,     rx: radiusX,     ry: radiusY,     fill: 'none',     stroke: `hsl(${hue} 80% 80% / 0.6)`,     transform: `rotate(${rotation} ${center} ${center})`
+  });
+}
+/**  * Gets a random number between a minimum and maximum value.
+ */
+function random(min, max, integer = true) {   let random = Math.random() * (max - min) + min;   let number = integer ? Math.floor(random) : random;   return number; }
+```
+
+
+
 
 
 
