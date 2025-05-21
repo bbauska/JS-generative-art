@@ -29,4 +29,10 @@ We’ll be covering a lot of ground, so don’t put yourself under pressure to u
 umpteen times before the proverbial penny finally dropped (JavaScript promises anyone?), and whenever understanding did finally dawn, it would usually be because I was experimenting with something I wanted to build, rather than repeating tutorial steps by rote. Tutorials and instructional books certainly have their place (I wouldn’t be writing this book otherwise), but it’s important that you take what you want from them, rather than seeing them as syllabi to be strictly followed.
 A sense of play is important, particularly when it comes to art. And although I mentioned tools previously, I would prefer if you viewed this book as more of a toybox than a toolbox. When I think of tools, I think of problems that need fixing, like the loose hinges on that crooked cabinet you’re going to tighten any day now. Tools tend to be more functional than fun, and I’d like you to have some fun with this book.
 
+# CHAPTER 1
+## The Beginner’s Path
+Before journeying along any path, the groundwork needs to be in place. In this opening chapter, that’s what we’ll do, lay the groundwork. We’ll introduce SVG, explain what makes it a uniquely powerful image format, and show how it can be used with JavaScript to create generative art. In the process, we’ll set up our tools and a template we can use for subsequent sketches.
+
+ ## Why JavaScript and SvJs?
+
 
